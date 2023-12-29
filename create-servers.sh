@@ -1,6 +1,6 @@
 #!/bin/bash
 
-NAME=$@
+NAMES=$@
 INSTANCE_TYPE=""
 IMAGE_ID=ami-03265a0778a880afb
 SECURITY_GROUP_ID=sg-001887f7841106c09
@@ -17,7 +17,7 @@ do
      INSTANCE_TYPE="t2.micro"
  fi
  echo creating $i instance
- IP_ADDRESS=$(aws ec2 run-instances --image-id $IMAGE_ID  --instance-type $INSTANCE_TYPE --security-group-ids $SECURITY_GROUP_ID --tag-specifications 'ResourceType=instance,Tags=[{Key=webserver,Value=$i}]' | jq -r '.Instances[0].PrivateIpAddress')
+ IP_ADDRESS=$(aws ec2 run-instances --image-id $IMAGE_ID  --instance-type $INSTANCE_TYPE --security-group-ids $SECURITY_GROUP_ID --tag-specifications 'ResourceType=instance,Tags=[{Key=Name,Value=$i}]' | jq -r '.Instances[0].PrivateIpAddress')
  echo "created $i instance: $IP_ADDRESS"
  #To assign tag specifications to the ec2 instance --> https://serverfault.com/questions/724501/how-to-add-a-tag-when-launching-an-ec2-instance-using-aws-clis
  
