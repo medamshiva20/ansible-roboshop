@@ -8,4 +8,6 @@
      ansible.builtin.yum:
       name: nodejs
       state: installed
+      disable_gpg_check: true
+      update_cache: true
    
