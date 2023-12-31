@@ -4,7 +4,12 @@
   tasks:
    - name: setup NPM source
      ansible.builtin.shell: "curl -sL https://rpm.nodesource.com/setup_lts.x | bash"
+   - name: Import Node.js GPG key
+     rpm_key:
+      key: "https://rpm.nodesource.com/pub_10.x/el/7/x86_64/RPM-GPG-KEY-nodesource"
+      state: present
    - name: Install NodeJS
      ansible.builtin.yum:
       name: nodejs
       state: installed
+   
