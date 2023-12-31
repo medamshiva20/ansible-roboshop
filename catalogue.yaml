@@ -44,7 +44,7 @@
      ansible.builtin.unarchive:
       src: /tmp/catalogue.zip
       dest: /app
-      remote_src: yes
+      remote_src: yes #If you have a file already on the remote machine this option will use it 
    - name: install depencies
      ansible.builtin.command: npm install
      args:
