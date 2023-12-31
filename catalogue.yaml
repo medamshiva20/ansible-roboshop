@@ -10,4 +10,29 @@
       state: installed
       disable_gpg_check: true
       update_cache: true
-   
+   - name: check roboshop user exist or not 
+     ansible.builtin.command: id roboshop
+     register: output #output is variable name
+     ignore_errors: true
+   - name: print the command output 
+     ansible.builtin.debug:
+      msg: "output is:{{output}}"
+   - name: print the exist status
+     ansible.builtin.debug:
+      msg: "{{output.rc}}"
+   - when: output.rc != 0
+     name: create user roboshop 
+     ansible.builtin.user:
+      name: roboshop  
+   - name: check /app directory or not 
+     ansible.builtin.stat:
+      path: /app
+     register: directory
+   - name: print the directory stats
+     ansible.builtin.debug:
+      msg: "output is:{{directory}}"
+   - name: create /app directory
+     ansible.builtin.file:
+      path: /app
+      state: directory
+     when: directory.stats.exists == False
