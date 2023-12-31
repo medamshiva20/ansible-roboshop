@@ -4,14 +4,6 @@
   tasks:
    - name: setup NPM source
      ansible.builtin.shell: "curl -sL https://rpm.nodesource.com/setup_lts.x | bash"
-   - name: Download Node.js GPG key
-     ansible.builtin.uri:
-      url: "https://rpm.nodesource.com/pub_14.x/el/7/x86_64/NODESOURCE-GPG-KEY-nodesource"
-      dest: "/etc/pki/rpm-gpg/NODESOURCE-GPG-KEY-nodesource"
-      mode: "0644"
-     changed_when: false  # Ignore if the key has already been downloaded
-   - name: Import Node.js GPG key
-     ansible.builtin.shell: "rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-nodesource"
    - name: Install NodeJS
      ansible.builtin.yum:
       name: nodejs
