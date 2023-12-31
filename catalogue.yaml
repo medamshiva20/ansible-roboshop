@@ -36,3 +36,39 @@
       path: /app
       state: directory
      when: directory.stat.exists == False
+   - name: download catalogue artifactory
+     ansible.builtin.get_url:
+      url: https://roboshop-builds.s3.amazonaws.com/catalogue.zip
+      dest: /tmp
+   - name: extract catalogue artifact
+     ansible.builtin.unarchive:
+      src: /tmp/catalogue.zip
+      dest: /app
+      remote_src: yes
+   - name: install depencies
+     ansible.builtin.command: npm install
+      args:
+       chdir: /app
+   - name: copy catalogue service
+     ansible.builtin.copy:
+      src: catalogue.service
+      dest: /etc/systemd/system/catalogue.service
+   - name: daemon reload
+     ansible.built.systemd:
+      daemon_reload: true
+   - name: copy mongo repo to yum.repos.d
+     ansible.builtin.copy:
+      src: mongodb.repo
+      dest: /etc/yum.repos.d/mongo.repo
+   - name: Install MongoDB
+     ansible.builtin.yum: 
+      name: mongodb-org-shell
+      state: installed
+   - name: load catalogue data
+     ansible.builtin.command: mongo --host mongodb.sivadevops.website < /app/schema/catalogue.js
+   - name: restart catalogue
+     ansible.builtin.service:
+      name: catalogue
+      state: restarted
+      enabled: true
+
