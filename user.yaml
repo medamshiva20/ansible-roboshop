@@ -24,4 +24,50 @@
      ansible.builtin.user:
       name: roboshop 
      when: output.rc != 0
- 
+   - name: check /app directory is exists or nto 
+     ansible.builtin.stat:
+      path: /app
+     register: directory
+   - name: print the directory output
+     ansible.builtin.debug:
+      msg: "output is:{{directory}}"
+   - name: if app directory exists,create /app directory
+     ansible.builtin.file:
+      name: /app
+      state: directory
+     when: directory.stat.exists == False
+   - name: download user artifact
+     ansible.builtin.get_url:
+      url: curl -L -o /tmp/user.zip https://roboshop-builds.s3.amazonaws.com/user.zip
+      dest: /tmp
+   - name: extract user artifact into /app folder
+     ansible.builtin.unarchive:
+      src: /tmp/user.zip
+      dest: /app
+      remote_src: yes
+   - name: Install dependencies
+     ansible.builtin.command: npm install
+   - name: copy user service
+     ansible.builtin.copy:
+      src: user.service
+      dest: /etc/systemd/system/user.service
+   - name: start and enable service
+     ansible.builtin.service:
+      name: user
+      state: started
+      enabled: true
+   - name: copy mongodb repo into yum.repos.d
+     ansible.builtin.copy:
+      src: mongodb.repo
+      dest: /etc/yum.repos.d/mongodb.repo
+   - name: install mongodb client package
+     ansible.builtin.yum:
+      name: mongodb-org-shell
+      state: installed
+      update_cache: yes
+   - name: load user data
+     ansible.builtin.shell: mongo --host mongodb.sivadevops.website </app/schema/user.js
+   - name: restart user service
+     ansible.builtin.service:
+      name: user
+      state: restarted
