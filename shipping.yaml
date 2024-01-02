@@ -34,8 +34,9 @@
      when: directory.stat.exists == False
    - name: download and extract shipping artifact
      ansible.builtin.unarchive:
-      url: https://roboshop-builds.s3.amazonaws.com/shipping.zip
+      src: https://roboshop-builds.s3.amazonaws.com/shipping.zip
       dest: /app
+      remote_src: yes
    - name: Install dependencies
      ansible.builtin.command: mvn clean package
      args:
