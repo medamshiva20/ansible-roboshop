@@ -1,8 +1,8 @@
 - name: Install mysql component
   hosts: mysql
   tasks:
-   - name: Disable old repos of mysql
-     ansible.builtin.shell: "yum module disable mysql -y"
+   - name: Disable current MySQL version
+     ansible.builtin.command: yum module disable mysql -y
    - name: copy mysql repo into yum.repos.d
      ansible.builtin.copy:
       src: mysql.repo
