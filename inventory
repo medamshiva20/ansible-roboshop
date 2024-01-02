@@ -16,3 +16,5 @@ mysql.sivadevops.website
 shipping.sivadevops.website
 [robbitmq]
 robbitmq.sivadevops.website
+[payment]
+payment.sivadevops.website
