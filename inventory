@@ -8,3 +8,5 @@ web.sivadevops.website
 redis.sivadevops.website
 [user]
 user.sivadevops.website
+[cart]
+cart.sivadevops.website
