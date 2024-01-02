@@ -1,0 +1,26 @@
+- name: Install user component
+  hosts: user
+  tasks:
+   - name: setup NPM source
+     ansible.builtin.shell: curl -sL https://rpm.nodesource.com/setup_lts.x | bash
+   - name: Install NodeJs
+     ansible.builtin.yum:
+      name: nodejs
+      state: installed
+      disable_gpg_check: true
+      update_cache: yes
+   - name: check if roboshop is exist or not 
+     ansible.builtin.command: id roboshop 
+     register: output
+     ignore_errors: true
+   - name: Print the user output
+     ansible.builtin.debug:
+      msg: "output is: {{output}}"
+   - name: Print the exit status
+     ansible.builtin.debug:
+      msg: "output is: {{output.rc}}"
+   - name: create roboshop user
+     ansible.builtin.user:
+      name: roboshop 
+     when: output.rc =! 0
+ 
