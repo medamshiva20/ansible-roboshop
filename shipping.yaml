@@ -40,7 +40,7 @@
      ansible.builtin.command: mvn clean package
      args:
       chdir: /app
-   - name: rename to artifact
+   - name: rename jar file
      ansible.builtin.command: mv target/shipping-1.0.jar shipping.jar
      args:
       chdir: /app
@@ -51,16 +51,7 @@
    - name: reload daemon
      ansible.builtin.systemd:
       daemon_reload: true
-   - name: start and enable service
-     ansible.builtin.service:
-      name: shipping
-      state: started
-      enabled: true
-    - name: copy mysql repo into yum.repos.d
-      ansible.builtin.copy:
-       src: mysql.repo
-       dest: /etc/yum.repos.d/mysql.repo
-    - name: Install mysql
+    - name: Install mysql client
       ansible.builtin.yum:
        name: mysql
        state: installed
@@ -70,3 +61,4 @@
       ansible.builtin.service:
        name: shipping
        state: restarted
+       enabled: true
