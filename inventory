@@ -10,3 +10,5 @@ redis.sivadevops.website
 user.sivadevops.website
 [cart]
 cart.sivadevops.website
+[mysql]
+mysql.sivadevops.website
