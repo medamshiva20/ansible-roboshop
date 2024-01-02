@@ -62,7 +62,7 @@
       name: mysql
       state: installed
    - name: load shipping data
-     ansible.builtin.command: mysql -h mysql.sivadevops.website -uroot -pRoboShop@1 < /app/schema/shipping.sql 
+     ansible.builtin.shell: mysql -h mysql.sivadevops.website -uroot -pRoboShop@1 < /app/schema/shipping.sql 
    - name: restart shipping service
      ansible.builtin.service:
       name: shipping
