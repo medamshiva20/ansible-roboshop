@@ -4,3 +4,5 @@ mongodb.sivadevops.website
 catalogue.sivadevops.website
 [web]
 web.sivadevops.website
+[redis]
+redis.sivadevops.website
