@@ -47,6 +47,8 @@
       remote_src: yes
    - name: Install dependencies
      ansible.builtin.shell: npm install
+     args:
+      chdir: /app
    - name: copy user service
      ansible.builtin.copy:
       src: user.service
