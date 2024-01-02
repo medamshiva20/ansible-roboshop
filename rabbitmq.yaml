@@ -1,5 +1,5 @@
 - name: Install rabbitmq component
-  hosts: rabbitmq
+  hosts: robbitmq
   become: yes
   tasks:
    - name: configure rabbitmq yum repos
