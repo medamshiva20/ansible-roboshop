@@ -10,7 +10,7 @@
       state: installed
       disable_gpg_check: true
       update_cache: yes
-   - name: check if roboshop is exist or not 
+   - name: check if roboshop useris exist or not 
      ansible.builtin.command: id roboshop 
      register: output
      ignore_errors: true
@@ -36,11 +36,11 @@
       name: /app
       state: directory
      when: directory.stat.exists == False
-   - name: download user artifact
+   - name: download user application code into /tmp
      ansible.builtin.get_url:
       url: "https://roboshop-builds.s3.amazonaws.com/user.zip"
       dest: /tmp
-   - name: extract user artifact into /app folder
+   - name: extract user application code into /app folder
      ansible.builtin.unarchive:
       src: /tmp/user.zip
       dest: /app
