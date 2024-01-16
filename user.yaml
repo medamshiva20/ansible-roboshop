@@ -24,7 +24,7 @@
      ansible.builtin.user:
       name: roboshop 
      when: output.rc != 0
-   - name: check /app directory is exists or nto 
+   - name: check /app directory is exists or not
      ansible.builtin.stat:
       path: /app
      register: directory
