@@ -36,7 +36,7 @@
       name: /app
       state: directory
      when: directory.stat.exists == False
-   - name: Download payment and extract
+   - name: Download payment and extract payment application code
      ansible.builtin.unarchive:
       src: https://roboshop-builds.s3.amazonaws.com/payment.zip
       dest: /app
