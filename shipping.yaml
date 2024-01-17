@@ -6,7 +6,7 @@
      ansible.builtin.yum:
       name: maven  
       state: installed
-   - name: check roboshop exists or not
+   - name: check roboshop user exists or not
      ansible.builtin.command: id roboshop 
      register: output
      ignore_errors: true
@@ -32,7 +32,7 @@
       name: /app
       state: directory
      when: directory.stat.exists == False
-   - name: download and extract shipping artifact
+   - name: download and extract shipping application code
      ansible.builtin.unarchive:
       src: https://roboshop-builds.s3.amazonaws.com/shipping.zip
       dest: /app
