@@ -20,7 +20,7 @@
       path: /usr/share/nginx/html
       state: directory
   
-  - name: download web artifact
+  - name: download web or frontend application code
     ansible.builtin.get_url:
       url: https://roboshop-builds.s3.amazonaws.com/web.zip
       dest: /tmp
